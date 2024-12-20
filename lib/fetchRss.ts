@@ -5,6 +5,7 @@ export interface Episode {
   title: string;
   content: string;
   pubDate: string;
+  image: string;
   enclosure: {
     url: string;
     length: string;
@@ -18,12 +19,13 @@ export interface Episode {
 export async function fetchRss(): Promise<Episode[]> {
   const parser = new Parser();
   const feed = await parser.parseURL('https://rss.art19.com/vancouverengineers');
-  
+
   return feed.items.map((item, index) => ({
     id: item.guid || `episode-${index}`,
     title: item.title || '',
     content: item.content || '',
     pubDate: item.pubDate || '',
+    image: item.itunes?.image || feed.image?.url || '',
     enclosure: item.enclosure || { url: '', length: '', type: '' },
     itunes: {
       duration: item.itunes?.duration || '',
