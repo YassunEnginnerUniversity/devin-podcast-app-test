@@ -3,6 +3,7 @@ import { Footer } from '@/components/Footer'
 import { fetchRss } from '@/lib/fetchRss'
 import { htmlToPlainText } from '@/lib/htmlToPlainText'
 import { notFound } from 'next/navigation'
+import { RelatedEpisodes } from '@/components/RelatedEpisodes'
 
 export default async function EpisodePage({ params }: { params: { id: string } }) {
   const episodes = await fetchRss();
@@ -34,6 +35,7 @@ export default async function EpisodePage({ params }: { params: { id: string } }
             </audio>
           </div>
         </div>
+        <RelatedEpisodes currentEpisode={episode} allEpisodes={episodes} />
       </main>
       <Footer />
     </div>
